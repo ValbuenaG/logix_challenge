@@ -13,3 +13,7 @@ export type Shipment = {
     status: ShipmentStatus
     houseBillNumber: string
 }
+
+export type GroupedShipments = {
+    [key: string]: Shipment[]
+}

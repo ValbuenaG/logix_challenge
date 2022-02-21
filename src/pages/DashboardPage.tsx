@@ -1,7 +1,9 @@
 import { ReactElement } from "react"
 import { Box, makeStyles, useTheme } from "@material-ui/core"
 import Loader from "react-loader-spinner"
-import { useGetNextShipments } from '../hooks/useGetNextShipments'
+import { useGetNextShipments } from "../hooks/useGetNextShipments"
+import { groupBy } from "../helpers/groupBy"
+import { ShipmentSchedule } from "../components/ShipmentSchedule"
 
 const useStyles = makeStyles({
     loader: {
@@ -20,11 +22,7 @@ export const DashboardPage: React.FC = () => {
     let component: ReactElement
     switch (fetchShipmentsResult.status) {
         case 'SUCCESS':
-            component = <div>
-                {fetchShipmentsResult.shipments.map((s, key) => (
-                    <div key={key}>{s.client}-{s.estimatedArrival}</div>
-                ))}
-            </div>
+            component = <ShipmentSchedule shipments={groupBy(fetchShipmentsResult.shipments)}/>
             break;
         case 'LOADING':
             component = <Box className={classes.loader}>
