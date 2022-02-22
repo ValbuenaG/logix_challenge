@@ -7,7 +7,7 @@ type ErrorResult = {
     message: string
 }
 
-type SuccessResult = {
+export type SuccessResult = {
     status: 'SUCCESS'
     shipments: Shipment[]
 }
