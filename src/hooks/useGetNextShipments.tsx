@@ -9,6 +9,8 @@ type LoadingResult = {
 const INITIAL_RESULT: LoadingResult = {
     status: 'LOADING'
 }
+const START_DATE_INCREMENT = 1
+const END_DATE_INCREMENT = 8
 
 export const useGetNextShipments = () => {
     const [fetchShipmentsResult, setFetchShipmentsResult] = useState<FetchShipmentsResult | LoadingResult>(INITIAL_RESULT)
@@ -21,8 +23,8 @@ export const useGetNextShipments = () => {
         const { shipments } = result
     
         // startDate and endDate is the interval of the next 7 days
-        const startDate = moment().add(1, 'days').format('MM/DD/YYYY')
-        const endDate = moment().add(8, 'days').format('MM/DD/YYYY')
+        const startDate = moment().add(START_DATE_INCREMENT, 'days').format('MM/DD/YYYY')
+        const endDate = moment().add(END_DATE_INCREMENT, 'days').format('MM/DD/YYYY')
         const nextShipments = shipments.filter( 
             // if the estimatedArrival date on unix is between those dates should arrive in the next seven days
             s => Date.parse(s.estimatedArrival) >= Date.parse(startDate) && Date.parse(s.estimatedArrival) <= Date.parse(endDate)
